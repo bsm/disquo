@@ -32,7 +32,7 @@ RSpec.describe Disquo::Worker do
       klass: "TestJob",
       queue: "__disquo_test__",
     )
-    expect(Disquo::TEST::PERFORMED.last[:job_id].size).to eq(48)
+    expect(Disquo::TEST::PERFORMED.last[:job_id]).to match(/^D\w+/)
   end
 
   def wait_for
