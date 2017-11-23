@@ -10,5 +10,6 @@ rvm:
   - 2.4.x
   - 2.3.x
 cache:
-  directories:
+  - bundler
+  - directories:
     - disque-master
