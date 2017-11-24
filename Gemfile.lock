@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    disquo (0.3.0)
+    disquo (0.3.1)
       concurrent-ruby
       connection_pool
       disque
