@@ -33,7 +33,7 @@ RSpec.describe Disquo::Worker do
       klass: "TestJob",
       queue: "__disquo_test__",
     )
-    expect(Disquo::TEST::PERFORMED.last[:job_id]).to match(/^D\w+/)
+    expect(Disquo::TEST::PERFORMED.last[:job_id]).to match(/^D[\w\-]+/)
     expect(Disquo::TEST::PERFORMED.map {|e| e[:args].first }).to match_array(0..199)
   end
 

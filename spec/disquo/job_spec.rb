@@ -5,7 +5,7 @@ RSpec.describe Disquo::Job do
   it "should enqueue jobs" do
     jid1 = TestJob.enqueue ["foo", 1]
     expect(qlen).to eq(1)
-    expect(jid1).to match(/^D\w+/)
+    expect(jid1).to match(/^D[\w\-]+/)
     expect(show(jid1)).to include(
       "id"    => jid1,
       "queue" => "__disquo_test__",
@@ -18,7 +18,7 @@ RSpec.describe Disquo::Job do
 
     jid2 = TestJob.enqueue ["bar"], delay: 600
     expect(qlen).to eq(1)
-    expect(jid2).to match(/^D\w+/)
+    expect(jid2).to match(/^D[\w\-]+/)
     expect(show(jid2)).to include(
       "id"    => jid2,
       "queue" => "__disquo_test__",
