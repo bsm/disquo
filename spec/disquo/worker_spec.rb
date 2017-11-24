@@ -3,11 +3,12 @@ require 'spec_helper'
 RSpec.describe Disquo::Worker do
 
   subject do
-    described_class.new Disquo.connect, wait_time: 0.1, wait_count: 11, queues: Disquo::TEST::QUEUE
+    described_class.new Disquo.connect, wait_time: 0.1, queues: Disquo::TEST::QUEUE
   end
 
   it "should run/process/shutdown" do
     runner = Thread.new { subject.run }
+    runner.abort_on_exception = true
 
     # seed 200 jobs
     200.times {|n| TestJob.enqueue(n) }
@@ -33,12 +34,13 @@ RSpec.describe Disquo::Worker do
       queue: "__disquo_test__",
     )
     expect(Disquo::TEST::PERFORMED.last[:job_id]).to match(/^D\w+/)
+    expect(Disquo::TEST::PERFORMED.map {|e| e[:args].first }).to match_array(0..199)
   end
 
   def wait_for
     20.times do
       break if yield
-      sleep(0.01)
+      sleep(0.1)
     end
   end
 
