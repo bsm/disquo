@@ -1,7 +1,7 @@
 language: ruby
 before_install:
-  - test -d disque-master || wget -O- https://github.com/antirez/disque/archive/master.tar.gz | tar xz
-  - cd disque-master/src/ && make && PREFIX=../ make install && cd -
+  - test -d disque-master/src || wget -O- https://github.com/antirez/disque/archive/master.tar.gz | tar xz
+  - cd disque-master/src && make && PREFIX=../ make install && cd -
 before_script:
   - ./disque-master/bin/disque-server --daemonize yes
 script:
