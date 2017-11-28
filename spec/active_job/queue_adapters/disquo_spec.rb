@@ -17,7 +17,7 @@ RSpec.describe ActiveJob::QueueAdapters::DisquoAdapter do
       "state" => "active",
     )
     expect(job_data["delay"]).to be_within(5).of(60)
-    expect(job_data["retry"]).to be_within(5).of(360)
+    expect(job_data["retry"]).to be_within(5).of(300)
     expect(job_data["ttl"]).to be_within(5).of(3600)
     expect(Disquo.load_job(job_data["body"])).to eq([
       "ActiveJob::QueueAdapters::DisquoAdapter::JobWrapper",
