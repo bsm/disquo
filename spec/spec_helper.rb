@@ -2,6 +2,11 @@ require 'rspec'
 require 'disquo'
 require 'disquo/worker'
 
+require 'active_job'
+require 'active_job/queue_adapters/disquo_adapter'
+ActiveJob::Base.queue_adapter = :disquo
+ActiveJob::Base.logger = Logger.new(nil)
+
 module Disquo::TEST
   QUEUE = "__disquo_test__"
   PERFORMED = []
@@ -14,6 +19,18 @@ class TestJob
 
   def perform(*args)
     Disquo::TEST::PERFORMED.push(klass: self.class.name, args: args, queue: queue, job_id: job_id)
+  end
+end
+
+class TestActiveJob < ActiveJob::Base
+  queue_as Disquo::TEST::QUEUE
+
+  def perform(*args)
+    Disquo::TEST::PERFORMED.push(klass: self.class.name, args: args)
+  end
+
+  def serialize
+    super.merge('disquo' => {'ttl' => 3600})
   end
 end
 
