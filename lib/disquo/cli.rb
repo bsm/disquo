@@ -17,7 +17,6 @@ module Disquo
       pool_timeout: 1,
       logfile:      nil, # STDOUT
       wait_time:    1,
-      wait_count:   100,
     }
 
     attr_reader :opts
@@ -68,8 +67,7 @@ module Disquo
       @worker = Disquo::Worker.new disque,
         queues: opts[:queues],
         concurrency: opts[:concurrency],
-        wait_time:   opts[:wait_time],
-        wait_count:  opts[:wait_count]
+        wait_time:   opts[:wait_time]
       @worker.run
       @worker.wait
     end

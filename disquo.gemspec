@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "disquo"
-  s.version     = "0.3.2"
+  s.version     = "0.3.3"
   s.platform    = Gem::Platform::RUBY
 
   s.licenses    = ["Apache-2.0"]

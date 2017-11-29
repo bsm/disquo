@@ -3,7 +3,7 @@ require 'concurrent/executor/fixed_thread_pool'
 require 'concurrent/atomic/atomic_fixnum'
 
 class Disquo::Worker
-  attr_reader :disque, :queues, :wait_time, :wait_count
+  attr_reader :disque, :queues, :wait_time
 
   # Init a new worker instance
   # @param [ConnectionPool] disque client connection pool
