@@ -11,12 +11,13 @@ class Disquo::Worker
   # @option [Array<String>] :queues queues to watch. Default: ["default"]
   # @option [Integer] :concurrency the number of concurrent threads. Default: 10
   # @option [Numeric] :wait_time maximum time (in seconds) to wait for jobs when retrieving next batch. Default: 1s
-  def initialize(disque, queues: [Disquo::DEFAULT_QUEUE], concurrency: 10, wait_time: 1)
+  def initialize(disque, queues: [Disquo::DEFAULT_QUEUE], concurrency: 10, wait_time: 1, wait_count: 100)
     @disque     = disque
     @queues     = Array(queues)
     @threads    = Concurrent::FixedThreadPool.new(concurrency)
     @busy       = Concurrent::AtomicFixnum.new
     @wait_time  = wait_time
+    @wait_count = wait_count
   end
 
   # Run starts the worker
